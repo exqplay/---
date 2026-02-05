@@ -7,9 +7,9 @@ const PASSWORD_HASH =
 
 // Загадки и ответы
 const questions = [
-  { text: "Сколько букв в слове «любовь»?", answer: "6" },
-  { text: "Сколько месяцев в году?", answer: "12" },
-  { text: "Сколько дней в феврале в невисокосный год?", answer: "28" }
+  { text: "Текущий год?", answer: "2026" },
+  { text: "Февраль?", answer: "2" },
+  { text: "12+3?", answer: "15" }
 ];
 
 // =====================
@@ -68,16 +68,16 @@ async function checkPassword() {
 // Обновление прогресса даты
 function updateDateProgress() {
   if (currentStep >= 1) {
-    dayEl.textContent = "15";
-    dayEl.classList.add("filled");
+    yearEl.textContent = "2026";
+    yearEl.classList.add("filled");
   }
   if (currentStep >= 2) {
     monthEl.textContent = "02";
     monthEl.classList.add("filled");
   }
   if (currentStep >= 3) {
-    yearEl.textContent = "2026";
-    yearEl.classList.add("filled");
+    dayEl.textContent = "15";
+    dayEl.classList.add("filled");
   }
 }
 
