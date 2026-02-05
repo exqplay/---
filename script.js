@@ -33,6 +33,9 @@ const questionTitle = document.getElementById("question-title");
 const answerInput = document.getElementById("answer-input");
 const answerError = document.getElementById("answer-error");
 const passwordError = document.getElementById("password-error");
+const dayEl = document.getElementById("day");
+const monthEl = document.getElementById("month");
+const yearEl = document.getElementById("year");
 
 // автологин
 if (localStorage.getItem("access") === "true") {
@@ -72,6 +75,7 @@ async function checkPassword() {
 
 // показать загадку
 function showQuiz() {
+updateDateProgress();
   if (currentStep >= questions.length) {
     showFinal();
     return;
@@ -105,4 +109,19 @@ function submitAnswer() {
 function showFinal() {
   quizScreen.classList.remove("active");
   finalScreen.classList.add("active");
+}
+
+function updateDateProgress() {
+  if (currentStep >= 1) {
+    dayEl.textContent = "15";
+    dayEl.classList.add("filled");
+  }
+  if (currentStep >= 2) {
+    monthEl.textContent = "02";
+    monthEl.classList.add("filled");
+  }
+  if (currentStep >= 3) {
+    yearEl.textContent = "2026";
+    yearEl.classList.add("filled");
+  }
 }

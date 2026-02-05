@@ -57,3 +57,16 @@ button {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+#date-progress {
+  margin-bottom: 20px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #ffb3c1;
+  animation: fade 0.5s ease;
+}
+
+#date-progress span.filled {
+  color: #ff4d6d;
+  font-weight: bold;
+}
