@@ -1,21 +1,25 @@
+/* Базовые стили */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #0f0f14;
   color: #fff;
-}
-
-#app {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  transition: transform 0.3s ease;
 }
 
+#app {
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Экраны */
 .screen {
   display: none;
-  text-align: center;
-  max-width: 320px;
   animation: fade 0.6s ease;
 }
 
@@ -23,6 +27,7 @@ body {
   display: block;
 }
 
+/* Ввод и кнопки */
 input {
   width: 100%;
   padding: 12px;
@@ -49,15 +54,13 @@ button {
   margin-top: 10px;
 }
 
-.final-text {
-  line-height: 1.6;
-}
-
+/* Анимация fade */
 @keyframes fade {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Прогресс даты */
 #date-progress {
   margin-bottom: 20px;
   font-size: 20px;
@@ -69,9 +72,16 @@ button {
 #date-progress span.filled {
   color: #ff4d6d;
   font-weight: bold;
+  animation: pop 0.4s ease;
 }
 
+@keyframes pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  70% { opacity: 1; transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 
+/* Финальный текст построчно */
 .final-line {
   opacity: 0;
   transform: translateY(10px);
@@ -83,7 +93,22 @@ button {
   transform: translateY(0);
 }
 
+/* Overlay затемнение */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease;
+  z-index: 10;
+}
 
+#overlay.active {
+  opacity: 0.85;
+}
+
+/* Лёгкий пульс фона */
 body.heartbeat {
   animation: heartbeat 1.5s ease-in-out infinite;
 }

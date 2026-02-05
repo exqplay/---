@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>💌</title>
+  <title>💌 Валентинка</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -20,10 +20,10 @@
 
   <!-- Экран загадок -->
   <div id="quiz-screen" class="screen">
+    <div id="date-progress">
+      <span id="day">__</span>.<span id="month">__</span>.<span id="year">____</span>
+    </div>
 
-  <div id="date-progress">
-    <span id="day">__</span>.<span id="month">__</span>.<span id="year">____</span>
-  </div>
     <h2 id="question-title"></h2>
     <input type="number" id="answer-input" />
     <button onclick="submitAnswer()">Ответить</button>
@@ -33,20 +33,20 @@
   <!-- Финал -->
   <div id="final-screen" class="screen">
     <h1>💖</h1>
-    <div id="final-screen" class="screen">
-  <h1>💖</h1>
-  <div id="final-text-container">
-    <p class="final-line">15.02.2026, 19:00 (MSK)</p>
-    <p class="final-line"><strong>Адрес ресторана</strong></p>
-    <p class="final-line">Ты мне нравишься.</p>
-    <p class="final-line">Я приглашаю тебя на свидание.</p>
-    <p class="final-line">Ты не обязана приходить,</p>
-    <p class="final-line">но я буду тебя ждать.</p>
-  </div>
-</div>
+    <div id="final-text-container">
+      <p class="final-line">15.02.2026, 19:00 (MSK)</p>
+      <p class="final-line"><strong>Адрес ресторана</strong></p>
+      <p class="final-line">Ты мне нравишься.</p>
+      <p class="final-line">Я приглашаю тебя на свидание.</p>
+      <p class="final-line">Ты не обязана приходить,</p>
+      <p class="final-line">но я буду тебя ждать.</p>
+    </div>
   </div>
 
 </div>
+
+<!-- Затемнение overlay -->
+<div id="overlay"></div>
 
 <script src="script.js"></script>
 </body>
