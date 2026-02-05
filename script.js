@@ -116,25 +116,35 @@ function submitAnswer() {
 
 // Финальный экран с анимацией
 function showFinal() {
-  // Показываем финальный экран сразу
   quizScreen.classList.remove("active");
   finalScreen.classList.add("active");
 
-  // Дата остаётся на секунду
+  // Сначала показываем дату
   updateDateProgress();
 
   // Затемнение overlay
   overlay.classList.add("active");
 
-  // Через 1 секунду убираем overlay и запускаем построчную анимацию + пульс
+  // Выбираем цифры даты
+  const digits = [dayEl, monthEl, yearEl];
+
+  // Последовательная пульсация цифр
+  digits.forEach((digit, index) => {
+    setTimeout(() => {
+      digit.classList.add("pulse");
+      // убираем класс после анимации
+      setTimeout(() => digit.classList.remove("pulse"), 400);
+    }, index * 500); // задержка между цифрами
+  });
+
+  // Через 2 секунды запускаем финальный текст
   setTimeout(() => {
     overlay.classList.remove("active");
-
     const lines = document.querySelectorAll(".final-line");
     lines.forEach((line, index) => {
       setTimeout(() => line.classList.add("visible"), index * 800);
     });
-  }, 1000); // 1 секунда пауза для демонстрации даты
+  }, 2000);
 }
 
 // Вспомогательная кнопка для теста (очистка прогресса)
