@@ -103,7 +103,7 @@ function submitAnswer() {
     return;
   }
 
-  if (value === questions[currentStep].answer) {
+  if (Number(value) === Number(questions[currentStep].answer)) {
     currentStep++;
     localStorage.setItem("step", currentStep);
     answerInput.value = "";
