@@ -1,31 +1,22 @@
 // ===== НАСТРОЙКИ =====
 
 // SHA-256 хэш пароля
-// (как получить — ниже)
+// пароль: DASJKD12CDS
 const PASSWORD_HASH =
   "a4963c50cd25fdf92fee9178af3655b0eaff2938adc1fa0e074d25e6f456fd74";
 
-// загадки
+// Загадки и ответы
 const questions = [
-  {
-    text: "James Buchanan-?? The President of the United States?",
-    answer: "15"
-  },
-  {
-    text: "Второй месяц года?",
-    answer: "2"
-  },
-  {
-    text: "Текущий год?",
-    answer: "2026"
-  }
+  { text: "Сколько букв в слове «любовь»?", answer: "6" },
+  { text: "Сколько месяцев в году?", answer: "12" },
+  { text: "Сколько дней в феврале в невисокосный год?", answer: "28" }
 ];
 
 // =====================
 
 let currentStep = Number(localStorage.getItem("step")) || 0;
 
-// DOM
+// DOM элементы
 const passwordScreen = document.getElementById("password-screen");
 const quizScreen = document.getElementById("quiz-screen");
 const finalScreen = document.getElementById("final-screen");
@@ -36,14 +27,15 @@ const passwordError = document.getElementById("password-error");
 const dayEl = document.getElementById("day");
 const monthEl = document.getElementById("month");
 const yearEl = document.getElementById("year");
+const overlay = document.getElementById("overlay");
 
-// автологин
+// Автологин если уже вводили пароль
 if (localStorage.getItem("access") === "true") {
   passwordScreen.classList.remove("active");
   showQuiz();
 }
 
-// SHA-256
+// SHA-256 функция
 async function sha256(text) {
   const data = new TextEncoder().encode(text);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
@@ -52,7 +44,7 @@ async function sha256(text) {
     .join("");
 }
 
-// проверка пароля
+// Проверка пароля
 async function checkPassword() {
   const input = document.getElementById("password-input").value.trim();
 
@@ -73,9 +65,26 @@ async function checkPassword() {
   }
 }
 
-// показать загадку
+// Обновление прогресса даты
+function updateDateProgress() {
+  if (currentStep >= 1) {
+    dayEl.textContent = "15";
+    dayEl.classList.add("filled");
+  }
+  if (currentStep >= 2) {
+    monthEl.textContent = "02";
+    monthEl.classList.add("filled");
+  }
+  if (currentStep >= 3) {
+    yearEl.textContent = "2026";
+    yearEl.classList.add("filled");
+  }
+}
+
+// Показ загадки
 function showQuiz() {
-updateDateProgress();
+  updateDateProgress();
+
   if (currentStep >= questions.length) {
     showFinal();
     return;
@@ -85,7 +94,7 @@ updateDateProgress();
   questionTitle.textContent = questions[currentStep].text;
 }
 
-// отправка ответа
+// Отправка ответа
 function submitAnswer() {
   const value = answerInput.value.trim();
 
@@ -105,39 +114,30 @@ function submitAnswer() {
   }
 }
 
-// финал
+// Финальный экран с анимацией
 function showFinal() {
-  // Показываем дату на секунду
-  updateDateProgress(); // дата уже заполнена
+  // Показываем финальный экран сразу
   quizScreen.classList.remove("active");
-  finalScreen.classList.remove("active"); // скрываем финальный экран на секундочку
+  finalScreen.classList.add("active");
 
-  overlay.classList.add("active"); // затемнение
+  // Дата остаётся на секунду
+  updateDateProgress();
 
+  // Затемнение overlay
+  overlay.classList.add("active");
+
+  // Через 1 секунду убираем overlay и запускаем построчную анимацию + пульс
   setTimeout(() => {
     overlay.classList.remove("active");
-    finalScreen.classList.add("active");
-    document.body.classList.add("heartbeat"); // запускаем пульс
+    document.body.classList.add("heartbeat"); // лёгкий пульс
 
-    // Построчно появление текста
     const lines = document.querySelectorAll(".final-line");
     lines.forEach((line, index) => {
-      setTimeout(() => line.classList.add("visible"), index * 800); 
+      setTimeout(() => line.classList.add("visible"), index * 800);
     });
-  }, 1000); // 1 секунда для демонстрации даты
+  }, 1000); // 1 секунда пауза для демонстрации даты
 }
 
-function updateDateProgress() {
-  if (currentStep >= 1) {
-    dayEl.textContent = "15";
-    dayEl.classList.add("filled");
-  }
-  if (currentStep >= 2) {
-    monthEl.textContent = "02";
-    monthEl.classList.add("filled");
-  }
-  if (currentStep >= 3) {
-    yearEl.textContent = "2026";
-    yearEl.classList.add("filled");
-  }
-}
+// Вспомогательная кнопка для теста (очистка прогресса)
+// Можно временно добавить в HTML:
+// <button onclick="localStorage.clear(); location.reload();">Сбросить прогресс</button>
