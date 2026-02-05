@@ -70,3 +70,25 @@ button {
   color: #ff4d6d;
   font-weight: bold;
 }
+
+
+.final-line {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.final-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+body.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
+}

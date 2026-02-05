@@ -107,8 +107,24 @@ function submitAnswer() {
 
 // финал
 function showFinal() {
+  // Показываем дату на секунду
+  updateDateProgress(); // дата уже заполнена
   quizScreen.classList.remove("active");
-  finalScreen.classList.add("active");
+  finalScreen.classList.remove("active"); // скрываем финальный экран на секундочку
+
+  overlay.classList.add("active"); // затемнение
+
+  setTimeout(() => {
+    overlay.classList.remove("active");
+    finalScreen.classList.add("active");
+    document.body.classList.add("heartbeat"); // запускаем пульс
+
+    // Построчно появление текста
+    const lines = document.querySelectorAll(".final-line");
+    lines.forEach((line, index) => {
+      setTimeout(() => line.classList.add("visible"), index * 800); 
+    });
+  }, 1000); // 1 секунда для демонстрации даты
 }
 
 function updateDateProgress() {
