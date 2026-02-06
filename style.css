@@ -29,7 +29,6 @@ body {
   display: none;
   min-height: 70vh;
 
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
