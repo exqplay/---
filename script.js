@@ -27,6 +27,8 @@ const questions = [
 let currentStep = Number(localStorage.getItem("step")) || 0;
 
 // ===== ФУНКЦИИ =====
+
+// Плавное переключение экранов
 function switchScreen(from, to) {
   from.classList.remove("active");
   setTimeout(() => {
@@ -34,12 +36,21 @@ function switchScreen(from, to) {
   }, 50);
 }
 
-function hash(str) {
-  return btoa(str);
+// SHA-256 хэширование
+async function hash(str) {
+  const buf = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(str)
+  );
+  return Array.from(new Uint8Array(buf))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-function checkPassword() {
-  if (hash(passwordInput.value.trim()) === PASSWORD_HASH) {
+// Проверка пароля
+async function checkPassword() {
+  const hashed = await hash(passwordInput.value.trim());
+  if (hashed === PASSWORD_HASH) {
     passwordError.textContent = "";
     switchScreen(passwordScreen, quizScreen);
     showQuiz();
@@ -48,17 +59,19 @@ function checkPassword() {
   }
 }
 
+// Показываем текущую загадку
 function showQuiz() {
   if (currentStep >= questions.length) {
     showFinal();
     return;
   }
-
   questionTitle.textContent = questions[currentStep].question;
   answerInput.value = "";
+  answerError.textContent = "";
   updateDateProgress();
 }
 
+// Проверка ответа на загадку
 function submitAnswer() {
   const value = answerInput.value.trim();
   if (!value) return;
@@ -73,6 +86,7 @@ function submitAnswer() {
   }
 }
 
+// Обновление прогресса даты
 function updateDateProgress() {
   const parts = ["__", "__", "____"];
   if (currentStep >= 1) parts[0] = "15";
@@ -85,6 +99,7 @@ function updateDateProgress() {
   });
 }
 
+// Финальный экран
 function showFinal() {
   switchScreen(quizScreen, finalScreen);
   updateDateProgress();
@@ -106,7 +121,7 @@ function showFinal() {
   }, 2000);
 }
 
-// ===== АВТОЗАПУСК =====
+// Автозапуск, если уже есть прогресс
 if (currentStep > 0) {
   passwordScreen.classList.remove("active");
   quizScreen.classList.add("active");
