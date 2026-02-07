@@ -71,22 +71,37 @@ function showQuiz() {
   updateDateProgress();
 }
 
-// Проверка ответа на загадку
+// ✅ Проверка ответа на загадку (с паузой после последнего ответа)
 function submitAnswer() {
   const value = answerInput.value.trim();
   if (!value) return;
 
-  if (Number(value) === Number(questions[currentStep].answer)) {
+  const expected = Number(questions[currentStep].answer);
+  const given = Number(value);
+
+  if (given === expected) {
     currentStep++;
     localStorage.setItem("step", currentStep);
     answerError.textContent = "";
+
+    // Если это был последний ответ — даём дате "пожить" секунду
+    if (currentStep >= questions.length) {
+      updateDateProgress(); // чтобы сразу отрисовалась собранная дата
+      answerInput.blur();   // чисто чтобы на мобиле клавиатура не мешала (по желанию)
+
+      setTimeout(() => {
+        showQuiz(); // showQuiz увидит, что шагов больше нет, и вызовет showFinal()
+      }, 1000);
+      return;
+    }
+
     showQuiz();
   } else {
     answerError.textContent = "Подумай ещё 😉";
   }
 }
 
-// Обновление прогресса даты
+// Обновление прогресса даты (месяц -> год -> день)
 function updateDateProgress() {
   // по умолчанию пусто
   dayEl.textContent = "__";
@@ -115,7 +130,6 @@ function updateDateProgress() {
     dayEl.classList.add("filled");
   }
 }
-
 
 // Финальный экран
 function showFinal() {
