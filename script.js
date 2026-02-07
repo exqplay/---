@@ -17,7 +17,7 @@ const monthEl = document.getElementById("month");
 const yearEl = document.getElementById("year");
 
 // ===== ДАННЫЕ =====
-const PASSWORD_HASH = "54cf4e60deae7f2028893d71a104f0e2b8f2ac43e4559685eac5b80ffaab5e1c";
+const PASSWORD_HASH = "6076172bb8187124c764278c6dc8bbb9afe866bfe3e2546d5a320c237da0e3b9";
 
 const questions = [
   { question: "这位俄罗斯流行歌星有多少孩子?", answer: 2 },
