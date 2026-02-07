@@ -73,7 +73,7 @@ function showQuiz() {
 
 
   if (currentStep === 0) {
-    questionImage.src = "https://drive.google.com/file/d/1IqAaCHtUewZBe9oj64WVmG41GcSWNn0H/view?usp=sharing"; // путь к картинке
+    questionImage.src = "phill.jpg"; // путь к картинке
     questionImage.style.display = "block";
   } else {
     questionImage.style.display = "none";
