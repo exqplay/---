@@ -21,7 +21,7 @@ const PASSWORD_HASH = "6076172bb8187124c764278c6dc8bbb9afe866bfe3e2546d5a320c237
 
 const questions = [
   { question: "这位俄罗斯流行歌星有多少孩子?", answer: 2 },
-  { question: "Add to the year of your birth the age at which people legally start drinking in America (and already trying to stop drinking in Russia) 😊", answer: 2026 },
+  { question: "Add to the year of your birth the age at which people legally start drinking in America (and already trying to stop drinking in Russia)", answer: 2026 },
   { question: "Daniel Ocean a déjà Onze amis.Ajoute Les Beatles. Combien sont-ils maintenant?", answer: 15 }
 ];
 
